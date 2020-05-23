@@ -34,6 +34,7 @@ Pastikan ada menambahkan/menggati README ini saat mengumpulkan. README minimal m
 1. Progress (sudah sampai milestone keberapa)
 2. Pendekatan algoritma yang digunakan untuk pathfinding dan penyelesaian mTSP, serta 
 3. Cara menjalankan program.
+
 Pengerjaan dapat dilakukan berkelompok, namun poin maksimal untuk setiap orang adalah poin maksimal dibagi jumlah orang per kelompok.<br>
 Anda bebas menggunakan pustaka maupun referensi apapun untuk mengerjakan tugas. Pastikan anda mencantumkan sumber bilamana anda menggunakan kode dari orang lain. Akan tetapi, pemahaman terhadap solusi masalah menjadi bagian penting dari penilaian , sehingga anda disarankan untuk menuliskan kode anda sendiri. 
 
