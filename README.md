@@ -49,11 +49,11 @@ Demo hanya dapat dilakukan sekali. Asisten juga akan menjalankan **plagiarism ch
 Silahkan hubungi asisten lewat line @alamhasabiebaru atau lewat email 13517096@std.stei.itb.ac.id . *Note : waktu menjawab bervariasi, namun email biasanya akan dibalas kurang dari sehari. Line mungkin tidak dibalas dalam waktu satu-dua hari. Mohon bersabar :)*. Pertanyaan juga dipersilahkan.
 
 ## Referensi
-Silahkan gunakan referensi berikut sebagai awal pengerjaan tugas:
-[1] Dataset : https://www.cs.utah.edu/~lifeifei/SpatialDataset.htm
-[2] Pengenalan dan formulasi mTSP : https://neos-guide.org/content/multiple-traveling-salesman-problem-mtsp
-[3] MIP , pustaka Python untuk optimisasi : https://python-mip.readthedocs.io/en/latest/intro.html
-[4] OpenGL untuk Python : https://stackabuse.com/brief-introduction-to-opengl-in-python-with-pyopengl/
+Silahkan gunakan referensi berikut sebagai awal pengerjaan tugas:<br>
+[1] Dataset : https://www.cs.utah.edu/~lifeifei/SpatialDataset.htm<br>
+[2] Pengenalan dan formulasi mTSP : https://neos-guide.org/content/multiple-traveling-salesman-problem-mtsp<br>
+[3] MIP , pustaka Python untuk optimisasi : https://python-mip.readthedocs.io/en/latest/intro.html<br>
+[4] OpenGL untuk Python : https://stackabuse.com/brief-introduction-to-opengl-in-python-with-pyopengl/<br>
 
 
 
