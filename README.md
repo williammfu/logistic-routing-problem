@@ -36,7 +36,7 @@ Pastikan ada menambahkan/menggati README ini saat mengumpulkan. README minimal m
 3. Cara menjalankan program.
 
 Pengerjaan dapat dilakukan berkelompok, namun poin maksimal untuk setiap orang adalah poin maksimal dibagi jumlah orang per kelompok.<br>
-Anda bebas menggunakan pustaka maupun referensi apapun untuk mengerjakan tugas. Pastikan anda mencantumkan sumber bilamana anda menggunakan kode dari orang lain. Akan tetapi, pemahaman terhadap solusi masalah menjadi bagian penting dari penilaian , sehingga anda disarankan untuk menuliskan kode anda sendiri. 
+Anda bebas menggunakan pustaka maupun referensi apapun untuk mengerjakan tugas, kecuali kode/pustaka jadi yang melakukan *routing*, karena tujuan tugas adalah membuat sebuah prototipe pembuatan rute. Pastikan anda mencantumkan sumber bilamana anda menggunakan kode dari orang lain. Akan tetapi, pemahaman terhadap solusi masalah menjadi bagian penting dari penilaian , sehingga anda disarankan untuk menuliskan kode anda sendiri.<br>
 
 ## Penilaian
 Saat ini, nilai belum ditentukan, akan tetapi nilai akan diberikan untuk tiap *milestone*. Penilaian akan dilakukan berdasarkan : 
