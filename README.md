@@ -1,7 +1,6 @@
 # Logistic Routing Problem
 
-![truck_running](https://picjumbo.com/wp-content/uploads/white-tir-truck-in-motion-driving-on-highway_free_stock_photos_picjumbo_DSC04205-1080x720.jpg){:height="50%" width="50%"}
-
+<img src="https://picjumbo.com/wp-content/uploads/white-tir-truck-in-motion-driving-on-highway_free_stock_photos_picjumbo_DSC04205-1080x720.jpg" class="img-responsive" width="50%" height="50%">
 ## Tujuan Tugas
 1. Review materi pathfinding pada mata kuliah Strategi Algoritma.
 2. Mengenal multiple-agent TSP.
