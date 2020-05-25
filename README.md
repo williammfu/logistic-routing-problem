@@ -35,7 +35,6 @@ Pastikan ada menambahkan/menggati README ini saat mengumpulkan. README minimal m
 1. Pendekatan algoritma yang digunakan untuk pathfinding dan penyelesaian mTSP, serta 
 2. Cara menjalankan program, termasuk instalasi pustaka bila menggunakan bermacam pustaka
 
-Pengerjaan dapat dilakukan berkelompok, namun poin maksimal untuk setiap orang adalah poin maksimal dibagi jumlah orang per kelompok.<br>
 Anda bebas menggunakan pustaka maupun referensi apapun untuk mengerjakan tugas, kecuali kode/pustaka jadi yang melakukan *routing*, karena tujuan tugas adalah membuat sebuah prototipe pembuatan rute. Pastikan anda mencantumkan sumber bilamana anda menggunakan kode dari orang lain. Akan tetapi, pemahaman terhadap solusi masalah menjadi bagian penting dari penilaian , sehingga anda disarankan untuk menuliskan kode anda sendiri.<br>
 
 ## Penilaian
