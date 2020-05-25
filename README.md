@@ -53,7 +53,10 @@ Asisten juga akan menjalankan **plagiarism checking** antar kode sumber peserta.
 Bonus **300** poin diberikan jika anda dapat mengirimkan hasil algoritma beserta beberapa contoh masukan/keluaran untuk kasus kota San Francisco , dengan jumlah jalanan yang lebih besar dari Kota Oldenburg. Dataset dapat diambil di website yang sama.
 
 ## Kontak
-Silahkan hubungi asisten lewat line @alamhasabiebaru atau lewat email 13517096@std.stei.itb.ac.id dengan subjek diawal tulisan \[SELEKSI IRK\] . *Note : waktu menjawab bervariasi, namun email biasanya akan dibalas kurang dari sehari. Line mungkin tidak dibalas dalam waktu satu-dua hari. Mohon bersabar :)*. Pertanyaan juga dipersilahkan.
+Silahkan hubungi asisten lewat line @alamhasabiebaru atau lewat email 13517096@std.stei.itb.ac.id dengan subjek diawal tulisan \[SELEKSI IRK\] . *Note : waktu menjawab bervariasi, namun email biasanya akan dibalas kurang dari sehari. Line mungkin tidak dibalas dalam waktu satu-dua hari. Mohon bersabar :)*. Pertanyaan juga dipersilahkan. Jawaban akan diposting dalam bagian QnA README ini.
+
+## QnA
+Masih kosong :).
 
 ## Referensi
 Silahkan gunakan referensi berikut sebagai awal pengerjaan tugas:<br>
@@ -65,5 +68,6 @@ Silahkan gunakan referensi berikut sebagai awal pengerjaan tugas:<br>
 
 ## Credits
 Thank you for Li Fei Fei et. al. for providing the data.
-Akhir Kata, selamat bersenang-senang !
 
+## Final Words
+Akhir Kata, selamat bersenang-senang ! It's not worth it if you're not having fun.
