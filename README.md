@@ -61,8 +61,9 @@ Silahkan gunakan referensi berikut sebagai awal pengerjaan tugas:<br>
 [2] Pengenalan dan formulasi mTSP : https://neos-guide.org/content/multiple-traveling-salesman-problem-mtsp<br>
 [3] MIP , pustaka Python untuk optimisasi : https://python-mip.readthedocs.io/en/latest/intro.html<br>
 [4] OpenGL untuk Python : https://stackabuse.com/brief-introduction-to-opengl-in-python-with-pyopengl/<br>
+[5]  Li, Feifei, Dihan Cheng, Marios Hadjieleftheriou, George Kollios, and Shang-Hua Teng. "On trip planning queries in spatial databases." In International symposium on spatial and temporal databases, pp. 273-290. Springer, Berlin, Heidelberg, 2005.
 
 ## Credits
-
+Thank you for Li Fei Fei et. al. for providing the data.
 Akhir Kata, selamat bersenang-senang !
 
