@@ -58,6 +58,10 @@ Silahkan hubungi asisten lewat line @alamhasabiebaru atau lewat email 13517096@s
 ## QnA
 - Bagaimana penentuan upagraf ? Apakah bebas oleh developer ?<br>
 Upagraf dibangun dari masukan simpul-simpul tujuan dan simpul kantor pusat. Masukan tersebut berasal dari pengguna, namun developer bebas menentukan format masukan simpul.
+- Bagaimana cara menghitung jarak dua simpul pada upagraf ? Apakah menggunakan jarak koordinat kedua simpul atau menggunakan data jalan, walaupun kedua simpul tidak bertetangga ?
+Tentunya kendaraan kurir bergerak di atas jalanan, tidak bergerak lurus antara du simpul :)  Selain itu, sebuah simpul dapat mencapai simpul lainnya dengan menelusuri jalan. Lakukan penelusuran untuk mendapatkan jaraknya. 
+- Apakah program menggunakan GUI atau command-based ?
+Dibebaskan.
 
 ## Referensi
 Silahkan gunakan referensi berikut sebagai awal pengerjaan tugas:<br>
