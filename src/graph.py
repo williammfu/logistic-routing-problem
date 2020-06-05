@@ -3,11 +3,25 @@ import pathfinding as pth
 import matplotlib.pyplot as plt
 import time, sys
 
-G = nx.Graph()
+# Oldenburg
+OL_NODE = "../data/OL.cnode.txt"
+OL_EDGE = "../data/OL.cedge.txt"
 
-def readNodes(filename):
+# San Francisco
+SF_NODE = "../data/SF.cnode.txt"
+SF_EDGE = "../data/SF.cedge.txt"
+
+def read_graph(node_file=OL_NODE, edge_file=OL_EDGE):
+    """
+    Initiates a graph from
+    the given datasets
+    """
+    # Initiallize array
+    G = nx.Graph()
+
+    # Reads the nodes dataset
     parsed = []
-    with open(filename, "r") as f:
+    with open(node_file, "r") as f:
         lines = f.readlines()
         for line in lines:
             parsed.append(line.strip().split(" "))
@@ -15,10 +29,9 @@ def readNodes(filename):
     for parse in parsed:
         G.add_node(int(parse[0]), pos=(float(parse[1]), float(parse[2])))
 
-
-def readEdges(filename):
+    # Reads the edges dataset
     parsed = []
-    with open(filename, "r") as f:
+    with open(edge_file, "r") as f:
         
         for line in f:
             parsed.append(line.strip().split(" "))
@@ -26,13 +39,31 @@ def readEdges(filename):
     for parse in parsed:
         G.add_edge(int(parse[1]), int(parse[2]), weight=float(parse[3]))
 
-def draw_map():
+    return G
+
+def draw_map(G):
+    """
+    Displays the map
+    """
+
+    # Adding axis to graph (optional)
+    fig, ax = plt.subplots()
+    limits = plt.axis('on')
+    ax.tick_params(left=True, bottom=True, labelleft=True, labelbottom=True)
+    plt.xlabel("Latitude")
+    plt.ylabel("Longitude")
+
+    # Display nodes per positions
     pos = nx.get_node_attributes(G, 'pos')
-    nx.draw(G, pos, node_size=2, with_labels=False)
+    nx.draw_networkx(G, pos, node_size=1, with_labels=False, ax=ax)
+
     plt.show()
 
-def create_subgraph():
-
+def create_subgraph(G):
+    """
+    Generates a subgraph with the given nodes
+    from the map G
+    """
     # Generate a new graph
     subgraph = nx.Graph()
     
@@ -42,7 +73,7 @@ def create_subgraph():
         for line in f:
             posts.append(int(line))
 
-    starting_node = posts[0]
+    starting_node = posts[0] # First line denotes the starting point
     posts.sort()
 
     node_pos = G.nodes().data('pos')
@@ -70,26 +101,30 @@ def create_subgraph():
     
     return starting_node, subgraph
 
-def drawSubgraph(subgraph):
-
-    # Displays graph in a circular model
-    pos = nx.circular_layout(subgraph)
-    nx.draw(subgraph, pos=pos, with_labels=True)
-
+def draw_subgraph(subgraph):
+    """
+    Displays the subgraph
+    """
     # Adding axis to graph (optional)
     fig, ax = plt.subplots()
-    limits = plt.axis('on')
+    plt.axis('on')
     ax.tick_params(left=True, bottom=True, labelleft=True, labelbottom=True)
     plt.xlabel("Latitude")
     plt.ylabel("Longitude")
 
+    # Displays graph in a circular model
+    pos = nx.circular_layout(subgraph)
+    nx.draw_networkx(subgraph, pos=pos, with_labels=True, ax=ax)
+
     # Displays graph
     plt.show()
 
-def createSubgraphMatrix(subgraph):
+def create_subgraph_matrix(subgraph, filename="mat.txt"):
     """
-    Creates a matrix in a txt file
+    Converts a subgraph
+    as a distance matrix
     """
+
     nodes = subgraph.nodes()
     edges = subgraph.edges().data('weight')
     index = { name : index for index, name in enumerate(nodes) }
@@ -97,10 +132,11 @@ def createSubgraphMatrix(subgraph):
     # Filling the distance matrix
     m = [[0 for i in range(len(nodes))] for j in range(len(nodes))]
     for i,j,k in edges:
+        # Symmetric matrix (i.e. M(i,j) == M(j,i))
         m[index[i]][index[j]] = k
         m[index[j]][index[i]] = k
 
-    with open("../data/mat.txt", "w") as f:
+    with open("../out/" + filename, "w") as f:
         for entry in m:
             for i in entry:
                 f.write(str(i) + " ")
@@ -128,13 +164,19 @@ def loadMatrix(filename):
 
 if __name__ == "__main__":
 
-    readNodes("../data/nodes.txt")
-    readEdges("../data/edges.txt")
+    # Oldenburg data
+    OL_MAP = read_graph()
+    
+    # San Francisco data
+    # read_graph(SF_NODE, SF_EDGE)
+
     s = time.time()
-    start, subgraph = create_subgraph()
-    createSubgraphMatrix(subgraph)
+    start, subgraph = create_subgraph(OL_MAP)
+    create_subgraph_matrix(subgraph, filename="small.txt")
     print(time.time() - s)
-    draw_map()
-    loadMatrix("../data/mat.txt")
+
+    draw_map(OL_MAP)
+    draw_subgraph(subgraph)
+
 
 

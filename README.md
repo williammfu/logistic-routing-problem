@@ -35,6 +35,7 @@ Persamaan-persamaan yang merepresentasikan batasan/ constraint dalam permasalaha
 **TBD**
 
 Persamaan berikut merepresentasikan eliminasi sub-tour
+
 <img src=https://latex.codecogs.com/gif.latex?u%5Ctextsubscript%7Bi%7D%20&plus;%20u%5Ctextsubscript%7Bj%7D%20&plus;%20%28n-m%29x%5Ctextsubscript%7Bij%7D%20%5Cleq%20n-m-1%2C%20%5Cforall%20i%2Cj%20%5Cin%20%5C%7B1%2C..%2Cn%5C%7D>
 
 ## Referensi
