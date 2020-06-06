@@ -14,6 +14,21 @@ Apabila anda memiliki package manager [pip](https://pypi.org/project/pip/), anda
 pip install requirements.txt
 ```
 
+## Running
+Untuk simpul-simpul yang ingin ditelusuri, ubahlah file **post.txt** pada directory **data**, dengan baris pertama merupakan indeks simpul awal (kantor pusat logistik) dan simpul lainnya dipisahkan *newline*.
+
+Contoh isi file *post.txt*
+```
+1
+2
+3
+4
+```
+Jalankan perintah berikut pada directory **bin**
+```
+python main.py
+```
+
 ## Multiple-Agent TSP
 Masalah pengantaran barang untuk satu kendaraan dengan fungsi objektif jarak minimal dapat dimodelkan oleh Travelling Salesman Problem. Akan tetapi, perusahaan logistik biasanya memiliki lebih dari satu kendaraan yang berangkat bersamaan, sehingga TSP kurang cocok digunakan. Generalisasi TSP untuk beberapa agen adalah **multiple-agent TSP (mTSP)**, dan model masalah ini akan kita gunakan. Pada mTSP, akan terdapat *m* tur yang akan dibangun. Syarat dari semua tur mirip dengan TSP, yaitu bahwa seluruh tur akan kembali ke simpul awal (mewakili kantor pusat) dan setiap tujuan hanya akan dilewati oleh satu tur.
 
@@ -25,7 +40,7 @@ Dalam membentuk upagraf dari simpul-simpul kota yang diinginkan, algoritma pathf
 
 dengan g(n) merupakan biaya/cost yang dibutuhkan untuk mencapai simpul n dan h(n) merupakan nilai heuristik yang memperkirakan biaya/cost yang dibutuhkan untuk mencapai simpul tujuan. Nilai heuristik yang dimanfaatkan dalam implementasi program ini adalah **Euclidean Distance** antara simpul n dengan simpul tujuan.
 
-<img src=https://latex.codecogs.com/gif.latex?d%20%3D%20%5Csqrt%7B%28x%5Ctextsubscript%7B1%7D-x%5Ctextsubscript%7B2%7D%29%5Ctextsuperscript%7B2%7D%20&plus;%20%28y%5Ctextsubscript%7B1%7D-y%5Ctextsubscript%7B2%7D%29%5Ctextsuperscript%7B2%7D%7D>
+<img src=https://latex.codecogs.com/gif.latex?d%3D%5Csqrt%7B%28x_1-x_2%29%5E2&plus;%28y_1-y_2%29%5E2%7D>
 
 ### Mutiple Travelling Salesman Problem
 Permasalahan m-TSP merupakan permasalahan optimasi yang diselesaikan dengan pendekatan **mixed integer programming (MIP)** dengan fungsi objektif sebagai berikut.
@@ -34,23 +49,23 @@ Permasalahan m-TSP merupakan permasalahan optimasi yang diselesaikan dengan pend
 
 Batasan-batasan (constraints) berupa persamaan linear yang ditambahkan kedalam model MIP ini adalah
 
-<img src=https://latex.codecogs.com/gif.latex?%5Csum_%7Bj%20%5Cin%20V%7D%20x%5Ctextsubscript%7B0j%7D%20%3D%20m>
+<img src=https://latex.codecogs.com/gif.latex?%5Csum_%7Bi%20%5Cin%20V-%5C%7B0%5C%7D%7Dx%5Ctextsubscript%7Bi0%7D%3Dm>
 
-<img src=https://latex.codecogs.com/gif.latex?%5Csum_%7Bi%20%5Cin%20V%7Dx%5Ctextsubscript%7Bi0%7D%20%3D%20m>
+<img src=https://latex.codecogs.com/gif.latex?%5Csum_%7Bj%20%5Cin%20V-%5C%7B0%5C%7D%7Dx%5Ctextsubscript%7B0j%7D%3Dm>
 
 Dengan asumsi simpul (node) 0 merupakan simpul dimulainya tur, kedua persamaan di atas berfungsi untuk memastikan bahwa tepat sebanyak m kendaraan  logistik yang berangkat dan kembali ke simpul 0.
 
-<img src=https://latex.codecogs.com/gif.latex?%5Csum_%7Bi%20%5Cin%20V%20-%20%5C%7B0%5C%7D%7D%20x%5Ctextsubscript%7Bij%7D%20%3D%201%2C%20%5Cforall%20j%20%5Cin%20V%20-%20%5C%7B0%5C%7D>
-
-<img src=https://latex.codecogs.com/gif.latex?%5Csum_%7Bj%20%5Cin%20V%20-%20%5C%7B0%5C%7D%7D%20x%5Ctextsubscript%7Bij%7D%20%3D%201%2C%20%5Cforall%20i%20%5Cin%20V%20-%20%5C%7B0%5C%7D>
+<img src=https://latex.codecogs.com/gif.latex?%5Csum_%7Bi%20%5Cin%20V%7Dx_%7Bij%7D%3D1%2C%5Cforall%20j%20%5Cin%20V-%5C%7B0%5C%7D>
+<br>
+<img src=https://latex.codecogs.com/gif.latex?%5Csum_%7Bj%20%5Cin%20V%7Dx_%7Bij%7D%3D1%2C%5Cforall%20i%20%5Cin%20V-%5C%7B0%5C%7D>
 
 Sementara itu, kedua persamaan di atas bermanfaat untuk membatasi agar simpul lainnya (selain simpul awal 0) agar hanya dikunjungi tepat sekali saja.
 
-Untuk mengeliminasi subtour, maka constraint ini ditambahkan ke dalam model MIP yang sudah ada (Gavish, 1976).
+Untuk mengeliminasi subtour, constraint ini ditambahkan ke dalam model MIP yang sudah ada (Gavish, 1976).
 
 <img src=https://latex.codecogs.com/gif.latex?u%5Ctextsubscript%7Bi%7D%20&plus;%20u%5Ctextsubscript%7Bj%7D%20&plus;%20%28n-m%29x%5Ctextsubscript%7Bij%7D%20%5Cleq%20n-m-1%2C%20%5Cforall%20i%2Cj%20%5Cin%20%5C%7B1%2C..%2Cn%5C%7D>
 
-dengan n merupakan jumlah nodes pada graf dan m merupakan jumlah node maksimum yang dapat dikunjungi sebuah kendaraan logistik (salesman) 
+dengan **n** merupakan jumlah nodes pada graf dan **m** merupakan jumlah node maksimum yang dapat dikunjungi sebuah kendaraan logistik (salesman) 
 
 ## Referensi
 1. Dataset : https://www.cs.utah.edu/~lifeifei/SpatialDataset.htm
