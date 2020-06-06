@@ -69,7 +69,7 @@ def a_star(G, start, goal):
     heapq.heappush(livenodes, Node(start, [], 0))
     current_node = Node(start, [], 0) # Dummy element
 
-    # Initialize loop
+    ## Initialize search ##
     while current_node.node != goal:
 
         # Picks out the live node
@@ -91,7 +91,6 @@ def a_star(G, start, goal):
                 to_add = Node(next_node, list.copy(current_node.path), current_distance + distance, parent=current_node)
                 heapq.heappush(livenodes, to_add)
                 awaken += 1
-
 
     print(current_node.path)
     print("Nodes:", awaken)

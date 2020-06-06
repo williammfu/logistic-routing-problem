@@ -6,17 +6,21 @@ Based on the proposed MIP solution of TSP
 by Dantzig, et.al 
 """
 from mip import Model, xsum, minimize, BINARY, OptimizationStatus
-import graph as gr
+from src import graph as gr
 
-# Initiating Graph
-G = gr.read_graph("../data/snodes.txt", "../data/sedges.txt")
+def load_graph(node_file, mat_file):
+    
+    parsed = []
+    with open(node_file, "r") as f:
+        lines = f.readlines()
+        for line in lines:
+            parsed.append(line.strip().split(" "))
 
-# Initiating list of Nodes and Edges
-mapped_nodes = { i : j for i,j in enumerate(gr.G.nodes()) }
-n = len(mapped_nodes.keys()) # Number of nodes in map G
-edges = [weight for b, e, weight in gr.G.edges().data('weight')]
+    matrix = gr.load_matrix(mat_file)
 
-def generate_tours(num_of_salesman, matrix):
+    return { int(i) : int(j) for i,j in parsed }, matrix
+
+def generate_tours(num_of_salesman, matrix, mapped_nodes):
     '''
     Returns a list of tour from the solution
     matrix after optimization
@@ -39,7 +43,7 @@ def generate_tours(num_of_salesman, matrix):
             
             tour.append(mapped_nodes[p])
             if q == 0: # Back to node 0 = tour created!!
-                tour.append(0)
+                tour.append(mapped_nodes[0])
                 break
             p = q
             q = [j for j,k in enumerate(matrix[p]) if matrix[p][j] > 0.0][0]
@@ -49,19 +53,19 @@ def generate_tours(num_of_salesman, matrix):
 
     return tours
 
-def mip_solve(G):
+def mip_solve(mapped_nodes, load_matrix, m, p):
     '''
     Creates a optimization model
     from the given graph G
     '''
+    # Number of nodes in map G
+    n = len(mapped_nodes.keys())
 
     # Matrix of distances
-    distance = gr.loadMatrix("../out/small.txt")
+    distance = load_matrix
 
     # Initiating model
     m_tsp = Model()
-    m = int(input("Number of salesman: "))
-    p = int(input("Max nodes: "))
 
     # Adding variables x and u
     # x represents the edges chosen in the tour
@@ -99,26 +103,33 @@ def mip_solve(G):
             if i != j:
                 m_tsp += u[i] - u[j] + (n-m) * x[i][j] <= (n-m) - 1
 
+    # Optimzing. . .
     st = m_tsp.optimize(max_seconds=30)
+
+    # Assumed solution is always generated
+    # There is a chance that the solution generated is not confirmed
+    # to be globally optimum
+
     if m_tsp.num_solutions:
 
         if st == OptimizationStatus.FEASIBLE:
-            print("Feasible sol only")
+            print("Feasible", end=" ")
         elif st == OptimizationStatus.OPTIMAL:
-            print("Optimum!")
+            print("Optimum", end=" ")
 
-        print("route with total distance {} found".format(m_tsp.objective_value))
+        print("tour(s) with total distance {} found".format(m_tsp.objective_value))
         nc = 0
         
-        met = []
+        result = []
         for i in range(n):
             row = [a.x for a in x[i]]
             for j in range(n):
                 print(x[i][j].x,end=" ")
-            met.append(row)
+            result.append(row)
             print("\n")
         
-        tours = generate_tours(m, met)
+        tours = generate_tours(m, result, mapped_nodes)
+        return tours
 
     else:
-        print("fails")
+        print("Failed. Tour(s) not found.")

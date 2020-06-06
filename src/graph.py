@@ -1,5 +1,5 @@
 import networkx as nx
-import pathfinding as pth
+from src import pathfinding as pth
 import matplotlib.pyplot as plt
 import time, sys
 
@@ -119,30 +119,37 @@ def draw_subgraph(subgraph):
     # Displays graph
     plt.show()
 
-def create_subgraph_matrix(subgraph, filename="mat.txt"):
+def create_subgraph_matrix(start, subgraph, filename="OL"):
     """
     Converts a subgraph
     as a distance matrix
     """
 
-    nodes = subgraph.nodes()
+    nodes = list(subgraph.nodes())
+    if nodes.index(start) != 0: # Starting node is always index 0
+        nodes[0], nodes[start] = nodes[start], nodes[0] # Swap
+
     edges = subgraph.edges().data('weight')
     index = { name : index for index, name in enumerate(nodes) }
     
     # Filling the distance matrix
-    m = [[0 for i in range(len(nodes))] for j in range(len(nodes))]
+    m = [[sys.maxsize for i in range(len(nodes))] for j in range(len(nodes))]
     for i,j,k in edges:
         # Symmetric matrix (i.e. M(i,j) == M(j,i))
         m[index[i]][index[j]] = k
         m[index[j]][index[i]] = k
 
-    with open("../out/" + filename, "w") as f:
+    with open("../out/" + filename + "nodes.txt", "w") as f:
+        for key, entry in enumerate(index):
+            f.write(str(key) + " " + str(entry) + "\n")
+        
+    with open("../out/" + filename + "mat.txt", "w") as f:
         for entry in m:
             for i in entry:
                 f.write(str(i) + " ")
             f.write("\n")
 
-def loadMatrix(filename):
+def load_matrix(filename):
     """
     Loads matrix from a given filename
     """
@@ -153,14 +160,8 @@ def loadMatrix(filename):
             m.append(
                 list(map(float, line.split()))
             )
-    
-    for arr in m:
-        for index, item in enumerate(arr):
-            if item == 0.0:
-                arr[index] = sys.maxsize 
 
     return m
-
 
 if __name__ == "__main__":
 
@@ -168,12 +169,10 @@ if __name__ == "__main__":
     OL_MAP = read_graph()
     
     # San Francisco data
-    # read_graph(SF_NODE, SF_EDGE)
+    # SF_MAP = read_graph(SF_NODE, SF_EDGE)
 
-    s = time.time()
     start, subgraph = create_subgraph(OL_MAP)
-    create_subgraph_matrix(subgraph, filename="small.txt")
-    print(time.time() - s)
+    create_subgraph_matrix(start, subgraph)
 
     draw_map(OL_MAP)
     draw_subgraph(subgraph)
