@@ -69,7 +69,8 @@ def draw_map(G, subgraph, edgeslist, nodeslist, lb, zoom=True, save=False):
         plt.ylim(min_y - 25, max_y + 25)
 
     if save:
-        plt.savefig('../out/img/result.png')
+        fname = input("Masukan nama file: ")
+        plt.savefig('../out/img/'+ fname + '.png')
     else:
         plt.show()
 
@@ -206,7 +207,7 @@ def generate_tours_data(tours):
 def print_tours(subgraph, tours):
     ''' Displays tours '''
 
-    print("TOUR ===========")
+    print("\n=== TOUR ===========")
     for tour in tours:
 
         tour_weight = 0
@@ -229,7 +230,7 @@ if __name__ == "__main__":
     start, subgraph = create_subgraph(OL_MAP)
     create_subgraph_matrix(start, subgraph)
 
-    print(OL_MAP.edges[0,1])
+    # print(OL_MAP.edges[0,1])
     # draw_map(OL_MAP)
     # draw_subgraph(subgraph)
 

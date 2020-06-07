@@ -48,6 +48,27 @@ dengan g(n) merupakan biaya/cost yang dibutuhkan untuk mencapai simpul n dan h(n
 <img src=https://latex.codecogs.com/gif.latex?d%3D%5Csqrt%7B%28x_1-x_2%29%5E2&plus;%28y_1-y_2%29%5E2%7D>
 
 ### Mutiple Travelling Salesman Problem
+
+#### 1. Reduced Cost Matrix
+
+Persoalan mTSP dapat diaproksimasi solusinya dengan membagi-bagi titik menjadi sebanyak **m** subgraf lengkap yang akan dicari tur minimumnya. Sirkuit Hamilton minimum ini dapat dicari dengan merepresentasikan tiap subgraf menjadi matriks ketetanggaan dengan contoh sebagai berikut.
+
+<img src=https://latex.codecogs.com/gif.latex?%5Cbegin%7Bbmatrix%7D%20%5Cinfty%20%2614%2617%262%268%5C%5C%2012%26%5Cinfty%2619%262%267%5C%5C%2010%263%26%5Cinfty%264%262%5C%5C%205%263%2612%26%5Cinfty%269%5C%5C%2011%267%264%2612%26%5Cinfty%20%5Cend%7Bbmatrix%7D>
+
+Matrix ini kemudian akan direduksi sedemikian rupa sehingga pada setiap kolom dan baris matriks terdapat sedikitnya satu sel yang bernilai nol.
+
+<img src=https://latex.codecogs.com/gif.latex?%5Cbegin%7Bbmatrix%7D%20%5Cinfty%20%2612%2615%260%266%5C%5C%208%26%5Cinfty%2617%260%265%5C%5C%206%261%26%5Cinfty%262%260%5C%5C%200%260%269%26%5Cinfty%266%5C%5C%202%260%260%265%26%5Cinfty%20%5Cend%7Bbmatrix%7D>
+
+Total nilai yang dikurangi dari matriks awal (r) adalah sebesar 18.
+
+Dengan memanfaatkan reduced cost matrix ini, nilai tur yang seminimum mungkin dapat dicari dengan pendekatan Branch and Bound, dimana nilai cost untuk setiap simpul c(i) ditulis sebagai
+
+<img src=https://latex.codecogs.com/gif.latex?%5Chat%7Bc%7D%28S%29%20%3D%20%5Chat%7Bc%7D%28P%29%20&plus;%20A%28i%2Cj%29%20&plus;%20r>
+
+dengan *c(P)* merupakan cost dari simpul parent pada pohon pencarian dan *A(i,j)* merupakan nilai sel matriks yang dipilih
+
+#### 2. Pemodelan MIP
+
 Permasalahan m-TSP merupakan permasalahan optimasi yang diselesaikan dengan pendekatan **mixed integer programming (MIP)** dengan fungsi objektif sebagai berikut.
 
 <img src=https://latex.codecogs.com/gif.latex?min%5Csum_%7B%5C%28i%2Cj%29%20%5Cin%20V%7Dc%5Ctextsubscript%7Bij%7D%20x%5Ctextsubscript%7Bij%7D>

@@ -81,7 +81,6 @@ def cluster_to_matrix(places, start, clusters):
     for i in range(len(clusters)):
 
         mapped = { tup[0] : j for j, tup in enumerate(clusters[i]) }
-        print(mapped)
 
         with open(OUTPUT_PATH + "nodes" + str(i) + ".txt", "w") as f:
             for m,n in enumerate(mapped):
