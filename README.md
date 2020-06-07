@@ -25,8 +25,13 @@ Contoh isi file *post.txt*
 4
 ```
 Jalankan perintah berikut pada directory **bin**
+- Untuk peta Oldenburg
 ```
-python main.py
+python main.py ol
+```
+- Untuk peta San Francisco
+```
+python main.py sf
 ```
 
 ## Multiple-Agent TSP
@@ -61,11 +66,11 @@ Dengan asumsi simpul (node) 0 merupakan simpul dimulainya tur, kedua persamaan d
 
 Sementara itu, kedua persamaan di atas bermanfaat untuk membatasi agar simpul lainnya (selain simpul awal 0) agar hanya dikunjungi tepat sekali saja.
 
-Untuk mengeliminasi subtour, constraint ini ditambahkan ke dalam model MIP yang sudah ada (Gavish, 1976).
+Untuk mengeliminasi subtour, constraint ini ditambahkan ke dalam model MIP yang sudah ada [MTZ, 1960].
 
-<img src=https://latex.codecogs.com/gif.latex?u%5Ctextsubscript%7Bi%7D%20&plus;%20u%5Ctextsubscript%7Bj%7D%20&plus;%20%28n-m%29x%5Ctextsubscript%7Bij%7D%20%5Cleq%20n-m-1%2C%20%5Cforall%20i%2Cj%20%5Cin%20%5C%7B1%2C..%2Cn%5C%7D>
+<img src=https://latex.codecogs.com/gif.latex?u_i-u_j&plus;p%5Ccdot%20x_%7Bij%7D%5Cle%20p-1%2C%5Cforall%201%20%5Cle%20i%20%5Cne%20j%20%5Cle%20n>
 
-dengan **n** merupakan jumlah nodes pada graf dan **m** merupakan jumlah node maksimum yang dapat dikunjungi sebuah kendaraan logistik (salesman) 
+dengan **n** merupakan jumlah nodes pada graf dan **p** merupakan jumlah node maksimum yang dapat dikunjungi sebuah kendaraan logistik (salesman) 
 
 ## Referensi
 1. Dataset : https://www.cs.utah.edu/~lifeifei/SpatialDataset.htm

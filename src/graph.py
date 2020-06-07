@@ -41,23 +41,37 @@ def read_graph(node_file=OL_NODE, edge_file=OL_EDGE):
 
     return G
 
-def draw_map(G):
+def draw_map(G, subgraph, edgeslist, nodeslist, lb, zoom=True, save=False):
     """
     Displays the map
     """
+    # Colors
+    COLOR = ['lightskyblue','darkseagreen','r','c','m','k','pink','orange']
 
-    # Adding axis to graph (optional)
-    fig, ax = plt.subplots()
-    limits = plt.axis('on')
-    ax.tick_params(left=True, bottom=True, labelleft=True, labelbottom=True)
-    plt.xlabel("Latitude")
-    plt.ylabel("Longitude")
 
     # Display nodes per positions
     pos = nx.get_node_attributes(G, 'pos')
-    nx.draw_networkx(G, pos, node_size=1, with_labels=False, ax=ax)
+    nx.draw(G, pos, node_color="lightgray", edge_color="lightgray", with_labels=False, node_size=6)
+    nx.draw_networkx_labels(G, pos, labels=lb, font_size=6, font_family='monospace')
+    for i in range(len(nodeslist)):
+        nx.draw_networkx_nodes(G, pos, nodelist=nodeslist[i][:1], node_color='yellow', edgescolor='gold', node_size=70, with_labels=True)
+        nx.draw_networkx_nodes(G, pos, nodelist=nodeslist[i][1:len(nodeslist[i])-1], node_color=COLOR[i%8], node_size=70, with_labels=True)
+        nx.draw_networkx_edges(G, pos=pos, edge_color=COLOR[i%8], edgelist=edgeslist[i])
 
-    plt.show()
+    if zoom:
+        x_data = [ x[1][0] for x in subgraph.nodes().data('pos') ]
+        y_data = [ x[1][1] for x in subgraph.nodes().data('pos') ]
+        min_X = min(x_data)
+        max_x = max(x_data)
+        min_y = min(y_data)
+        max_y = max(y_data)
+        plt.xlim(min_X - 25, max_x + 25)
+        plt.ylim(min_y - 25, max_y + 25)
+
+    if save:
+        plt.savefig('../out/img/result.png')
+    else:
+        plt.show()
 
 def create_subgraph(G):
     """
@@ -76,23 +90,28 @@ def create_subgraph(G):
     starting_node = posts[0] # First line denotes the starting point
     posts.sort()
 
+    # Adding nodes
     node_pos = G.nodes().data('pos')
     for post in posts:
         subgraph.add_node(post, pos=node_pos[post])
 
     size = len(posts)
+
+    # Building a complete graph
+    print("Memulai pathfinding. . .")
     start = time.time()
     for i in range(size):
         for j in range(i+1, size):
             subgraph.add_edge(posts[i], posts[j], weight=pth.a_star(G, posts[i], posts[j]))
-    print("Elapsed time: {} seconds".format(time.time() - start))
+    print("Waktu pathfinding: {:.3f} detik".format(time.time() - start))
 
-    with open("../data/snodes.txt", "w") as f:
+    # Writes subgraph to a txt file
+    with open("../out/SUBnodes.txt", "w") as f:
         nodes = subgraph.nodes().data('pos')
         for node in nodes:
             f.write(str(node[0]) + " " + str(node[1][0]) + " " + str(node[1][1]) + "\n")
 
-    with open("../data/sedges.txt", "w") as f:
+    with open("../out/SUBedges.txt", "w") as f:
         edges = list(subgraph.edges().data('weight'))
         for i in range(len(edges)):
             f.write(
@@ -101,20 +120,14 @@ def create_subgraph(G):
     
     return starting_node, subgraph
 
-def draw_subgraph(subgraph):
+def draw_subgraph(subgraph, edgeslist):
     """
     Displays the subgraph
     """
-    # Adding axis to graph (optional)
-    fig, ax = plt.subplots()
-    plt.axis('on')
-    ax.tick_params(left=True, bottom=True, labelleft=True, labelbottom=True)
-    plt.xlabel("Latitude")
-    plt.ylabel("Longitude")
-
     # Displays graph in a circular model
-    pos = nx.circular_layout(subgraph)
-    nx.draw_networkx(subgraph, pos=pos, with_labels=True, ax=ax)
+    pos = nx.get_node_attributes(subgraph, 'pos')
+    nx.draw_networkx_nodes(subgraph, pos=pos, with_labels=True, node_size=10)
+    nx.draw_networkx_edges(subgraph, pos=pos, edge_color='r', edgelist=edgeslist)
 
     # Displays graph
     plt.show()
@@ -126,8 +139,9 @@ def create_subgraph_matrix(start, subgraph, filename="OL"):
     """
 
     nodes = list(subgraph.nodes())
-    if nodes.index(start) != 0: # Starting node is always index 0
-        nodes[0], nodes[start] = nodes[start], nodes[0] # Swap
+    st = nodes.index(start)
+    if st != 0: # Starting node is always index 0
+        nodes[0], nodes[st] = nodes[st], nodes[0] # Swap
 
     edges = subgraph.edges().data('weight')
     index = { name : index for index, name in enumerate(nodes) }
@@ -163,6 +177,47 @@ def load_matrix(filename):
 
     return m
 
+def generate_tours_data(tours):
+    '''
+    Generate data for the
+    tours visualization
+    '''
+    edgeslist = []
+    nodeslist = []
+    labels = {}
+
+    for tour in tours:
+        temp_edge = []
+        temp_node = []
+
+        temp_node.append(tour[0])
+        labels[tour[0]] = str(tour[0])
+        for i in range(len(tour)-1):
+            edge = tour[i], tour[i+1]
+            temp_edge.append(edge)
+            labels[tour[i+1]] = str(tour[i+1])
+            temp_node.append(tour[i+1])
+        
+        edgeslist.append(temp_edge)
+        nodeslist.append(temp_node)
+    
+    return edgeslist, nodeslist, labels
+
+def print_tours(subgraph, tours):
+    ''' Displays tours '''
+
+    print("TOUR ===========")
+    for tour in tours:
+
+        tour_weight = 0
+        print("{}".format(tour[0]),end="")
+        
+        for i in range(1,len(tour)):
+            print("-> {}".format(tour[i]),end=" ")
+            tour_weight += subgraph.edges[tour[i-1], tour[i]]['weight']
+        
+        print("\nBobot tur = {}".format(tour_weight))
+
 if __name__ == "__main__":
 
     # Oldenburg data
@@ -174,8 +229,9 @@ if __name__ == "__main__":
     start, subgraph = create_subgraph(OL_MAP)
     create_subgraph_matrix(start, subgraph)
 
-    draw_map(OL_MAP)
-    draw_subgraph(subgraph)
+    print(OL_MAP.edges[0,1])
+    # draw_map(OL_MAP)
+    # draw_subgraph(subgraph)
 
 
 

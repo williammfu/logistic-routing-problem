@@ -92,6 +92,4 @@ def a_star(G, start, goal):
                 heapq.heappush(livenodes, to_add)
                 awaken += 1
 
-    print(current_node.path)
-    print("Nodes:", awaken)
     return current_node.distance

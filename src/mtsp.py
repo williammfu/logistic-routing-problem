@@ -95,13 +95,11 @@ def mip_solve(mapped_nodes, load_matrix, m, p):
         m_tsp += xsum(x[i][j] for j in range(n)) == 1
 
     # Subtour elimination
-    # Based on the constraint formulated by Gavish, 1976
-    # as the correction for the constraint
-    # suggested by Svestka & Huckfeldt, 1973
+    # Based on the constraint formulated by Miller, et al. (1960)
     for i in range(1, n):
         for j in range(1, n):
             if i != j:
-                m_tsp += u[i] - u[j] + (n-m) * x[i][j] <= (n-m) - 1
+                m_tsp += u[i] - u[j] +  p * x[i][j] <= p - 1
 
     # Optimzing. . .
     st = m_tsp.optimize(max_seconds=30)
