@@ -9,7 +9,7 @@ from mip import Model, xsum, minimize, BINARY, OptimizationStatus
 from src import graph as gr
 
 def load_graph(node_file, mat_file):
-    
+    ''' Loads graph representation with adj matrix '''
     parsed = []
     with open(node_file, "r") as f:
         lines = f.readlines()
@@ -121,10 +121,7 @@ def mip_solve(mapped_nodes, load_matrix, m, p):
         result = []
         for i in range(n):
             row = [a.x for a in x[i]]
-            for j in range(n):
-                print(x[i][j].x,end=" ")
             result.append(row)
-            print("\n")
         
         tours = generate_tours(m, result, mapped_nodes)
         return tours

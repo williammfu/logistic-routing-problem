@@ -30,18 +30,16 @@ def choose_method():
 MAP = None
 SAVE_GRAPH = False # if true, graph will be saved in ../out/img
 
-if len(sys.argv) == 1:
-    MAP = graph.read_graph(graph.OL_NODE, graph.OL_EDGE)
-elif len(sys.argv) == 2:
+if len(sys.argv) == 2:
     if sys.argv[1].lower() == 'ol':
         MAP = graph.read_graph(graph.OL_NODE, graph.OL_EDGE)
     elif sys.argv[1].lower() == 'sf':
         MAP = graph.read_graph(graph.SF_NODE, graph.SF_EDGE)
     else:
-        print("Invalid filename")
+        print("Invalid argument(s)")
         sys.exit()
 else:
-    print("Invalid arguments")
+    print("Invalid argument(s)")
     sys.exit()
 
 START, PLACES = graph.create_subgraph(MAP)
