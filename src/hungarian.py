@@ -6,14 +6,15 @@ INF = maxsize
 livenodes = [] # Priority queue to hold live nodes
 
 MAT = [
-    [INF, 14, 17, 2, 8],
-    [12, INF, 19, 2, 7],
-    [10, 3, INF, 4, 2],
-    [5, 3, 12, INF, 9],
-    [11, 7, 7, 12, INF]
+    [INF, 14, 17, 2, 8, 18],
+    [12, INF, 19, 2, 7, 13],
+    [10, 3, INF, 4, 2, 21],
+    [5, 3, 12, INF, 9, 10],
+    [11, 7, 7, 12, INF, 7],
+    [10, 56, 12, 4, 5, INF]
 ]
 
-mapped = {0:1,1:2,2:3,3:4,4:5}
+mapped = {0:1,1:2,2:3,3:4,4:5,5:6}
 class Node:
 
     def __init__(self, cost, mat, path, node):
@@ -73,6 +74,7 @@ def search(mapped_nodes, matrix):
     reduced, cost = reduce_matrix(matrix)
     tour = set(range(len(matrix)))
     exp = Node(cost, reduced, [], 0)
+    livenodes.clear()
 
     start = time.time()
     while set(exp.path) != tour:
