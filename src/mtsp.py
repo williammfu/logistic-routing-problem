@@ -70,9 +70,10 @@ def mip_solve(mapped_nodes, load_matrix, m, p):
     # Adding variables x and u
     # x represents the edges chosen in the tour
     # x(i,j) == 1 when the edge c(i,j) is included in the tour, otherwise 0
+    x = [[ m_tsp.add_var(var_type=BINARY) for i in range(n) ] for j in range(n) ]
+
     # u is a continuous variable represents the constraint for the 
     # given tour (no subtours are allowed!!)
-    x = [[ m_tsp.add_var(var_type=BINARY) for i in range(n) ] for j in range(n) ]
     u = [ m_tsp.add_var() for i in range(n) ]
 
     # Adding objective

@@ -100,6 +100,8 @@ dengan **n** merupakan jumlah nodes pada graf dan **p** merupakan jumlah node ma
 4. Li, Feifei, Dihan Cheng, Marios Hadjieleftheriou, George Kollios, and Shang-Hua Teng. "On trip planning queries in spatial databases." In International symposium on spatial and temporal databases, pp. 273-290. Springer, Berlin, Heidelberg, 2005.
 5. Matai, Rajesh, Surya Prakash Singh, and Murari Lal Mittal. "Traveling salesman problem: an overview of applications, formulations, and solution approaches." Traveling salesman problem, theory and applications 1, 2010.
 6. K-Means Clustering Algorithm: https://stanford.edu/~cpiech/cs221/handouts/kmeans.html
+7. Python MIP for TSP Problem: https://python-mip.readthedocs.io/en/latest/examples.html
+8. Reduced Cost Matrix for TSP: http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.734.8448&rep=rep1&type=pdf
 
 ## Credits
 Thank you for Li Fei Fei et. al. for providing the data.
